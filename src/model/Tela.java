@@ -14,6 +14,8 @@ import java.awt.Panel;
 import java.awt.Color;
 import java.awt.TextField;
 import java.awt.Label;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Tela extends JFrame {
 
@@ -52,10 +54,6 @@ public class Tela extends JFrame {
 		contentPane.add(btn1);
 		
 		JButton btn2 = new JButton("2");
-		btn2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		btn2.setBounds(416, 44, 49, 47);
 		contentPane.add(btn2);
 		
