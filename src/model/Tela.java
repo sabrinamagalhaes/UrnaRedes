@@ -16,6 +16,8 @@ import java.awt.TextField;
 import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.SystemColor;
+import javax.swing.JLabel;
 
 public class Tela extends JFrame {
 	String textoVotoID="";
@@ -97,7 +99,7 @@ public class Tela extends JFrame {
 		contentPane.add(btnBranco);
 		
 		JButton btnCorrige = new JButton("Corrige");
-		btnCorrige.setBackground(new Color(255, 255, 102));
+		btnCorrige.setBackground(SystemColor.desktop);
 		btnCorrige.setBounds(405, 294, 80, 29);
 		contentPane.add(btnCorrige);
 		
@@ -123,6 +125,18 @@ public class Tela extends JFrame {
 		txtIDCandidato.setEditable(false);
 		txtIDCandidato.setBounds(22, 72, 228, 22);
 		contentPane.add(txtIDCandidato);
+		
+		JLabel lblAperte = new JLabel("Aperte ");
+		lblAperte.setBounds(22, 274, 46, 14);
+		contentPane.add(lblAperte);
+		
+		JLabel lblVerdeParaConfirmar = new JLabel("VERDE para CONFIRMAR");
+		lblVerdeParaConfirmar.setBounds(22, 293, 155, 14);
+		contentPane.add(lblVerdeParaConfirmar);
+		
+		JLabel lblLaranjaParaCorrigir = new JLabel("LARANJA para CORRIGIR");
+		lblLaranjaParaCorrigir.setBounds(22, 309, 155, 14);
+		contentPane.add(lblLaranjaParaCorrigir);
 		
 		btn1.addMouseListener(new MouseAdapter() {
 			@Override
