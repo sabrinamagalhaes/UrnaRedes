@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class Tela extends JFrame {
+	String textoVotoID="";
 
 	private JPanel contentPane;
 
@@ -41,9 +42,10 @@ public class Tela extends JFrame {
 	 * Create the frame.
 	 */
 	public Tela() {
+		
 		setTitle("Urna Eletr\u00F4nica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 400);
+		setBounds(100, 100, 621, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -95,14 +97,17 @@ public class Tela extends JFrame {
 		contentPane.add(btnBranco);
 		
 		JButton btnCorrige = new JButton("Corrige");
+		btnCorrige.setBackground(new Color(255, 255, 102));
 		btnCorrige.setBounds(405, 294, 80, 29);
 		contentPane.add(btnCorrige);
 		
 		JButton btnConfirma = new JButton("Confirma");
-		btnConfirma.setBounds(494, 276, 80, 47);
+		btnConfirma.setBackground(new Color(34, 139, 34));
+		btnConfirma.setBounds(494, 276, 88, 47);
 		contentPane.add(btnConfirma);
 		
 		TextField txtNomeCandidato = new TextField();
+		txtNomeCandidato.setEditable(false);
 		txtNomeCandidato.setBounds(22, 142, 228, 22);
 		contentPane.add(txtNomeCandidato);
 		
@@ -115,7 +120,96 @@ public class Tela extends JFrame {
 		contentPane.add(label_1);
 		
 		TextField txtIDCandidato = new TextField();
+		txtIDCandidato.setEditable(false);
 		txtIDCandidato.setBounds(22, 72, 228, 22);
 		contentPane.add(txtIDCandidato);
+		
+		btn1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '1';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '2';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '3';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '4';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '5';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '6';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '7';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn8.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '8';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn9.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '9';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btn0.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID += '0';
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btnCorrige.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				textoVotoID ="";
+				txtIDCandidato.setText(textoVotoID);
+			}
+		});
 	}
 }
