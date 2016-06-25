@@ -150,6 +150,11 @@ public class Tela extends JFrame {
 		contentPane.add(btnListarCandidatos);
 		
 		JButton btnFinalizarVotao = new JButton("Finalizar Vota\u00E7\u00E3o");
+		btnFinalizarVotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});
 		btnFinalizarVotao.setBounds(497, 395, 177, 55);
 		contentPane.add(btnFinalizarVotao);
 		
@@ -238,6 +243,16 @@ public class Tela extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				textoVotoID ="";
 				txtIDCandidato.setText(textoVotoID);
+			}
+		});
+		
+		btnFinalizarVotao.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ContagemVotos vt = new ContagemVotos();
+				vt.setVisible(true);
+			     dispose();
+
 			}
 		});
 	}
