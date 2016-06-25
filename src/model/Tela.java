@@ -20,8 +20,9 @@ import java.awt.SystemColor;
 import javax.swing.JLabel;
 
 public class Tela extends JFrame {
+	//string que contém o id do candidato e deverá ser enviada para o servidor
 	String textoVotoID="";
-
+		
 	private JPanel contentPane;
 
 	/**
