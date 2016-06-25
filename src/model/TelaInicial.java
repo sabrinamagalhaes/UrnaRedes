@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TelaInicial {
 
@@ -44,21 +46,31 @@ public class TelaInicial {
 		frmUrna.setBounds(100, 100, 621, 400);
 		frmUrna.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUrna.getContentPane().setLayout(null);
+
 		
 		JButton btnVotar = new JButton("Votar");
-		btnVotar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				
+		btnVotar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
 				Tela urna = new Tela();
 				urna.setVisible(true);
 				frmUrna.dispose();
 			}
 		});
+		btnVotar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		btnVotar.setBounds(243, 86, 105, 79);
 		frmUrna.getContentPane().add(btnVotar);
 		
-		JButton btnVotos = new JButton("Votos");
-		btnVotos.setBounds(243, 176, 105, 79);
-		frmUrna.getContentPane().add(btnVotos);
+		JButton btnVotao = new JButton("Vota\u00E7\u00E3o");
+		btnVotao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnVotao.setBounds(243, 176, 105, 79);
+		frmUrna.getContentPane().add(btnVotao);
 	}
 }
