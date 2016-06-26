@@ -332,6 +332,9 @@ public class Tela extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(btnBranco.isEnabled()){
 					//colocar o codigo do botão branco aqui
+					if(!btnFinalizarVotao.isEnabled()){
+						btnFinalizarVotao.setEnabled(true);
+					}
 				}
 			}
 		});
