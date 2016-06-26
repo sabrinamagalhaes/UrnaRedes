@@ -56,56 +56,69 @@ public class Tela extends JFrame {
 		contentPane.setLayout(null);
 		
 		JButton btn1 = new JButton("1");
+		btn1.setEnabled(false);
 		btn1.setBounds(449, 44, 49, 47);
 		contentPane.add(btn1);
 		
 		JButton btn2 = new JButton("2");
+		btn2.setEnabled(false);
 		btn2.setBounds(508, 44, 49, 47);
 		contentPane.add(btn2);
 		
 		JButton btn3 = new JButton("3");
+		btn3.setEnabled(false);
 		btn3.setBounds(567, 44, 49, 47);
 		contentPane.add(btn3);
 		
 		JButton btn4 = new JButton("4");
+		btn4.setEnabled(false);
 		btn4.setBounds(449, 102, 49, 47);
 		contentPane.add(btn4);
 		
 		JButton btn5 = new JButton("5");
+		btn5.setEnabled(false);
 		btn5.setBounds(508, 102, 49, 47);
 		contentPane.add(btn5);
 		
 		JButton btn6 = new JButton("6");
+		btn6.setEnabled(false);
 		btn6.setBounds(567, 102, 49, 47);
 		contentPane.add(btn6);
 		
 		JButton btn7 = new JButton("7");
+		btn7.setEnabled(false);
 		btn7.setBounds(449, 160, 49, 47);
 		contentPane.add(btn7);
 		
 		JButton btn8 = new JButton("8");
+		btn8.setEnabled(false);
 		btn8.setBounds(508, 160, 49, 47);
 		contentPane.add(btn8);
 		
 		JButton btn9 = new JButton("9");
+		btn9.setEnabled(false);
 		btn9.setBounds(567, 160, 49, 47);
 		contentPane.add(btn9);
 		
 		JButton btn0 = new JButton("0");
+		btn0.setEnabled(false);
 		btn0.setBounds(508, 218, 49, 47);
 		contentPane.add(btn0);
 		
 		JButton btnBranco = new JButton("Branco");
+		btnBranco.setEnabled(false);
 		btnBranco.setBackground(Color.WHITE);
 		btnBranco.setBounds(407, 294, 80, 29);
 		contentPane.add(btnBranco);
 		
 		JButton btnCorrige = new JButton("Corrige");
+		btnCorrige.setEnabled(false);
 		btnCorrige.setBackground(SystemColor.desktop);
 		btnCorrige.setBounds(497, 294, 80, 29);
 		contentPane.add(btnCorrige);
 		
 		JButton btnConfirma = new JButton("Confirma");
+		btnConfirma.setEnabled(false);
 		btnConfirma.setBackground(new Color(34, 139, 34));
 		btnConfirma.setBounds(586, 276, 88, 47);
 		contentPane.add(btnConfirma);
@@ -150,6 +163,7 @@ public class Tela extends JFrame {
 		contentPane.add(btnListarCandidatos);
 		
 		JButton btnFinalizarVotao = new JButton("Finalizar Vota\u00E7\u00E3o");
+		btnFinalizarVotao.setEnabled(false);
 		btnFinalizarVotao.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			
@@ -161,98 +175,164 @@ public class Tela extends JFrame {
 		btn1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '1';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn1.isEnabled()){
+					textoVotoID += '1';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '2';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn2.isEnabled()){
+					textoVotoID += '2';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '3';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn3.isEnabled()){
+					textoVotoID += '3';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '4';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn4.isEnabled()){
+					textoVotoID += '4';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '5';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn5.isEnabled()){
+					textoVotoID += '5';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '6';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn6.isEnabled()){
+					textoVotoID += '6';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '7';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn7.isEnabled()){
+					textoVotoID += '7';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '8';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn8.isEnabled()){
+					textoVotoID += '8';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '9';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn9.isEnabled()){
+					textoVotoID += '9';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btn0.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID += '0';
-				txtIDCandidato.setText(textoVotoID);
+				if(btn0.isEnabled()){
+					textoVotoID += '0';
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btnCorrige.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				textoVotoID ="";
-				txtIDCandidato.setText(textoVotoID);
+				if(btnCorrige.isEnabled()){
+					textoVotoID ="";
+					txtIDCandidato.setText(textoVotoID);
+				}
 			}
 		});
 		
 		btnFinalizarVotao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				ContagemVotos vt = new ContagemVotos();
-				vt.setVisible(true);
-			     dispose();
+				if(btnFinalizarVotao.isEnabled()){
+					ContagemVotos vt = new ContagemVotos();
+					vt.setVisible(true);
+				     dispose();
+				}
 
+			}
+		});
+		
+		btnListarCandidatos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btn0.setEnabled(true);
+				btn1.setEnabled(true);
+				btn2.setEnabled(true);
+				btn3.setEnabled(true);
+				btn4.setEnabled(true);
+				btn5.setEnabled(true);
+				btn6.setEnabled(true);
+				btn7.setEnabled(true);
+				btn8.setEnabled(true);
+				btn9.setEnabled(true);
+				btnConfirma.setEnabled(true);
+				btnBranco.setEnabled(true);
+				btnCorrige.setEnabled(true);
+
+			}
+		});
+		
+		btnConfirma.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(btnConfirma.isEnabled()){
+					//colocar o codigo do botão confirma aqui, no caso, para evento click
+					if(!btnFinalizarVotao.isEnabled()){
+						btnFinalizarVotao.setEnabled(true);
+					}
+					
+				}
+			}
+		});
+		
+		btnBranco.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(btnBranco.isEnabled()){
+					//colocar o codigo do botão branco aqui
+				}
 			}
 		});
 	}
