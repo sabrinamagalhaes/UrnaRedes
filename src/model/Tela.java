@@ -19,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
+import javax.swing.JOptionPane;
 
 public class Tela extends JFrame {
 	//string que contém o id do candidato e deverá ser enviada para o servidor
@@ -45,6 +46,8 @@ public class Tela extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	 
 	public Tela() {
 		
 		setTitle("Urna Eletr\u00F4nica");
@@ -322,6 +325,13 @@ public class Tela extends JFrame {
 					if(!btnFinalizarVotao.isEnabled()){
 						btnFinalizarVotao.setEnabled(true);
 					}
+					
+					//exibe uma mensagem dizendo que o voto foi confirmado
+			        JOptionPane.showMessageDialog(null, "Voto Confirmado!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
+			        
+			        //seta o textbox do codigo e a string textoVotoID
+			        textoVotoID ="";
+					txtIDCandidato.setText(textoVotoID);	
 					
 				}
 			}
