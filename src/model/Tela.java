@@ -175,6 +175,12 @@ public class Tela extends JFrame {
 		btnFinalizarVotao.setBounds(497, 395, 177, 55);
 		contentPane.add(btnFinalizarVotao);
 		
+		JButton btnVerificar = new JButton("Verificar");
+	
+		btnVerificar.setEnabled(false);
+		btnVerificar.setBounds(226, 199, 174, 47);
+		contentPane.add(btnVerificar);
+		
 		btn1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -310,9 +316,9 @@ public class Tela extends JFrame {
 				btn7.setEnabled(true);
 				btn8.setEnabled(true);
 				btn9.setEnabled(true);
-				btnConfirma.setEnabled(true);
 				btnBranco.setEnabled(true);
 				btnCorrige.setEnabled(true);
+				btnVerificar.setEnabled(true);
 
 			}
 		});
@@ -346,6 +352,13 @@ public class Tela extends JFrame {
 						btnFinalizarVotao.setEnabled(true);
 					}
 				}
+			}
+		});
+		
+		btnVerificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				btnConfirma.setEnabled(true);
 			}
 		});
 	}
