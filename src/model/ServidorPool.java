@@ -5,7 +5,7 @@ import java.net.Socket;
 
 public class ServidorPool {
 	
-	public ServidorPool(){
+	public static void main(String args[]){
 		try{
 			ServerSocket servidor = new ServerSocket(40005, 10);
 			while(true){
