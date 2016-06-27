@@ -47,7 +47,8 @@ public class Cliente {
 	
 	public void enviaVotos(ArrayList<Candidato> candidatos){
 		try {
-            File arq = new File("Candidatos.dat");
+			//Coloca o array com os dados e votos dos candidatos em um arquivo
+            File arq = new File("CandidatosCliente.dat");
             arq.createNewFile();
             FileOutputStream canoOut = new FileOutputStream(arq);
             ObjectOutputStream serializador = new ObjectOutputStream(canoOut);
@@ -56,9 +57,9 @@ public class Cliente {
             serializador.close();
             canoOut.close();
             
+            //Eniva o arquivo com votos do cliente para o servidor
             dadosAEnviar = new ObjectOutputStream(socketCliente.getOutputStream());
-            FileInputStream file = new FileInputStream("Candidatos.dat"); 
-            
+            FileInputStream file = new FileInputStream("CandidatosCliente.dat"); 
             byte[] buf = new byte[4062];
             int i = 0;
             while(true){
@@ -77,7 +78,22 @@ public class Cliente {
 	public ArrayList<Candidato> recebeCandidatos(){
 		ArrayList<Candidato> candidatos = new ArrayList<>();
         try {
-            File arq = new File("Candidatos.dat");
+        	//Recebe o arquivo do servidor contendo os dados dos candidatos
+        	int i = 0, len = 0;
+        	byte[] buf = new byte[4062];
+        	FileOutputStream file = new FileOutputStream("CandidatosServidor.dat");
+        	ObjectInputStream entrada = new ObjectInputStream(socketCliente.getInputStream());
+        	while(true){
+                len = entrada.read(buf);
+                if(len == -1) break;
+                file.write(buf, i, len);
+                i++;   
+            }
+        	file.close();
+        	entrada.close();
+        	      
+        	//Le o arquivo recebido e coloca os dados dos candidatos em um array
+            File arq = new File("CandidatosServidor.dat");
             FileInputStream canoIn = new FileInputStream(arq);
             ObjectInputStream serializador = new ObjectInputStream(canoIn);
             candidatos = (ArrayList<Candidato>) serializador.readObject();
