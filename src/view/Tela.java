@@ -348,40 +348,47 @@ public class Tela extends JFrame {
 		btnListarCandidatos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
-				String candidatoNome;
-				int candidatoNumero;
-				String candidatoPartido;
-				String TextoExibido="";
-				
-				btn0.setEnabled(true);
-				btn1.setEnabled(true);
-				btn2.setEnabled(true);
-				btn3.setEnabled(true);
-				btn4.setEnabled(true);
-				btn5.setEnabled(true);
-				btn6.setEnabled(true);
-				btn7.setEnabled(true);
-				btn8.setEnabled(true);
-				btn9.setEnabled(true);
-				btnBranco.setEnabled(true);
-				btnCorrige.setEnabled(true);
-				btnVerificar.setEnabled(true);
-				
-				//para teste, depois colocar aqui pra pegar do servidor
-				adcCandidatos();
-				listaCandidatos = cliente.recebeCandidatos();
-				
-				
-				int i = 0;
-				while(i != listaCandidatos.size()){
-					candidatoNome = listaCandidatos.get(i).getNomeCandidato();
-					candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
-					candidatoPartido = listaCandidatos.get(i).getPartido();
-					TextoExibido+=candidatoNome +" "+candidatoNumero+" "+candidatoPartido+"\n";
-					i++;
+				if(btnListarCandidatos.isEnabled()){
+					String candidatoNome;
+					int candidatoNumero;
+					String candidatoPartido;
+					String TextoExibido="";
+					
+					btn0.setEnabled(true);
+					btn1.setEnabled(true);
+					btn2.setEnabled(true);
+					btn3.setEnabled(true);
+					btn4.setEnabled(true);
+					btn5.setEnabled(true);
+					btn6.setEnabled(true);
+					btn7.setEnabled(true);
+					btn8.setEnabled(true);
+					btn9.setEnabled(true);
+					btnBranco.setEnabled(true);
+					btnCorrige.setEnabled(true);
+					btnVerificar.setEnabled(true);
+					
+					//para teste, depois colocar aqui pra pegar do servidor
+					adcCandidatos();
+					listaCandidatos = cliente.recebeCandidatos();
+					
+					
+					int i = 0;
+					
+	
+					while(i != listaCandidatos.size()){
+						candidatoNome = listaCandidatos.get(i).getNomeCandidato();
+						candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
+						candidatoPartido = listaCandidatos.get(i).getPartido();
+						listaCandidatos.get(i).setNumVotos(0);
+						TextoExibido+=candidatoNome +" "+candidatoNumero+" "+candidatoPartido+"\n";
+						i++;
+					}
+					textPane.setText(TextoExibido);
+					
+					btnListarCandidatos.setEnabled(false);
+
 				}
-				textPane.setText(TextoExibido);
 			}
 		});
 		
