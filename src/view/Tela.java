@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Candidato;
+
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -16,6 +19,7 @@ import java.awt.TextField;
 import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
@@ -24,7 +28,11 @@ import javax.swing.JOptionPane;
 public class Tela extends JFrame {
 	//string que contém o id do candidato e deverá ser enviada para o servidor
 	String textoVotoID="";
-		
+	
+	
+	ArrayList<Candidato> listaCandidatos = new ArrayList<Candidato>();
+	
+	
 	private JPanel contentPane;
 
 	/**
@@ -46,9 +54,30 @@ public class Tela extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	
+	public void adcCandidatos(){
+		listaCandidatos.add(new Candidato(1111,"Caio","PQP",0));
+		listaCandidatos.add(new Candidato(1112,"Caiolino","GAP",0));
+		listaCandidatos.add(new Candidato(1113,"Caiuu","GOT",0));
+		listaCandidatos.add(new Candidato(0000,"Branco","S/P",0));
+		
+	}
+	public int pegarPosicaoCandidato(int numero){
+		int candidatoNumero;
+		int i = 0;
+		while(i != listaCandidatos.size()){
+			candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
+			if(candidatoNumero == numero)
+			{
+				return i;
+			}
+			i++;
+		}
+		return i;
+	}
 	 
 	public Tela() {
+		
+
 		
 		setTitle("Urna Eletr\u00F4nica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -287,6 +316,8 @@ public class Tela extends JFrame {
 				if(btnCorrige.isEnabled()){
 					textoVotoID ="";
 					txtIDCandidato.setText(textoVotoID);
+					txtNomeCandidato.setText("");
+
 				}
 			}
 		});
@@ -297,7 +328,15 @@ public class Tela extends JFrame {
 				if(btnFinalizarVotao.isEnabled()){
 					ContagemVotos vt = new ContagemVotos();
 					vt.setVisible(true);
-				     dispose();
+					dispose();
+				     
+					//teste
+				    int i = 0;
+					while(i != listaCandidatos.size()){
+						System.out.println(listaCandidatos.get(i).getNomeCandidato() + " "+listaCandidatos.get(i).getCodigoVotacao()+ " "+listaCandidatos.get(i).getNumVotos());
+						
+						i++;
+					}
 				}
 
 			}
@@ -306,6 +345,12 @@ public class Tela extends JFrame {
 		btnListarCandidatos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				
+				String candidatoNome;
+				int candidatoNumero;
+				String candidatoPartido;
+				String TextoExibido="";
+				
 				btn0.setEnabled(true);
 				btn1.setEnabled(true);
 				btn2.setEnabled(true);
@@ -319,7 +364,20 @@ public class Tela extends JFrame {
 				btnBranco.setEnabled(true);
 				btnCorrige.setEnabled(true);
 				btnVerificar.setEnabled(true);
-
+				
+				//para teste, depois colocar aqui pra pegar do servidor
+				adcCandidatos();
+				
+				
+				int i = 0;
+				while(i != listaCandidatos.size()){
+					candidatoNome = listaCandidatos.get(i).getNomeCandidato();
+					candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
+					candidatoPartido = listaCandidatos.get(i).getPartido();
+					TextoExibido+=candidatoNome +" "+candidatoNumero+" "+candidatoPartido+"\n";
+					i++;
+				}
+				textPane.setText(TextoExibido);
 			}
 		});
 		
@@ -338,7 +396,8 @@ public class Tela extends JFrame {
 			        //seta o textbox do codigo e a string textoVotoID
 			        textoVotoID ="";
 					txtIDCandidato.setText(textoVotoID);	
-					
+					txtNomeCandidato.setText("");
+
 				}
 			}
 		});
@@ -351,14 +410,37 @@ public class Tela extends JFrame {
 					if(!btnFinalizarVotao.isEnabled()){
 						btnFinalizarVotao.setEnabled(true);
 					}
+					
+					int i = pegarPosicaoCandidato(0000);
+					listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
+					txtNomeCandidato.setText("");
+
+					//exibe uma mensagem dizendo que o voto foi confirmado
+			        JOptionPane.showMessageDialog(null, "Voto Confirmado!", "Confirmação", JOptionPane.INFORMATION_MESSAGE);
 				}
+				
+
 			}
 		});
 		
 		btnVerificar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				int i = pegarPosicaoCandidato(Integer.parseInt(textoVotoID));
+				if(i != listaCandidatos.size()){
+					listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
+					txtNomeCandidato.setText(listaCandidatos.get(i).getNomeCandidato());
+
+				}else{
+					 i = pegarPosicaoCandidato(0000);
+					 listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
+					 txtNomeCandidato.setText("Branco/Inválido");
+				}
+						
+				
 				btnConfirma.setEnabled(true);
+				
+				
 			}
 		});
 	}
