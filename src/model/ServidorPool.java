@@ -12,8 +12,8 @@ public class ServidorPool {
 				Socket SERVIDOR_SOCKET = servidor.accept();
 				Servidor threadServidora =	new	Servidor(SERVIDOR_SOCKET);
 				threadServidora.start();
-				servidor.close();
 			}			
+			
 		}
 		catch(Exception e){
 			
