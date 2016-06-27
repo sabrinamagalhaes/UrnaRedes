@@ -35,7 +35,7 @@ public class Servidor extends Thread{
 	        		//Atualizar o numero de votos dos candidatos
 	        		break;
 	        	case "999":
-	        		enviarArquivos("Caminho do arquivo com nome dos candidatos");
+	        		enviarArquivos("/home/grupo05bsi/");
 	        		break;
         		default:
         			
