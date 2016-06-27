@@ -7,6 +7,13 @@ public class Candidato {
 	private String partido;
 	private int numVotos;
 	
+	public Candidato(int codigoVotacao, String nomeCandidato, String partido, int numVotos) {
+		super();
+		this.codigoVotacao = codigoVotacao;
+		this.nomeCandidato = nomeCandidato;
+		this.partido = partido;
+		this.numVotos = numVotos;
+	}
 	public int getCodigoVotacao() {
 		return codigoVotacao;
 	}
@@ -31,6 +38,4 @@ public class Candidato {
 	public void setNumVotos(int numVotos) {
 		this.numVotos = numVotos;
 	}
-	
-	
 }
