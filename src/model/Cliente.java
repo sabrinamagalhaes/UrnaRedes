@@ -1,9 +1,14 @@
 package model;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.net.InetAddress;
-import java.net.Socket;
+import java.net.Socket;	
 
 public class Cliente {
 	
@@ -11,7 +16,7 @@ public class Cliente {
     private String hostname = "cosmos.lasdpc.icmc.usp.br";
     private int porta = 40005; 
     
-    private ObjectInputStream dadosAEnviar;
+    private ObjectOutputStream dadosAEnviar;
 	
 	public int criarConexao() {
 
@@ -26,5 +31,16 @@ public class Cliente {
 	    
 	    return 0;	
 	}
+	
+	public void enviaOpcao(String opcao){
+        try {
+        	dadosAEnviar = new ObjectOutputStream(socketCliente.getOutputStream());
+            dadosAEnviar.flush();
+            dadosAEnviar.writeObject(opcao);
+            dadosAEnviar.flush();
 
+        } catch (Exception e) {
+            System.out.println("Erro 6: " + e.getMessage());
+        }
+	}	
 }
