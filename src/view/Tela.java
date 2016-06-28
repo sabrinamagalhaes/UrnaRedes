@@ -33,8 +33,8 @@ public class Tela extends JFrame {
 	
 	ArrayList<Candidato> listaCandidatos = new ArrayList<Candidato>();
 	ArrayList<Candidato> listaCandidatosServ;
-	Cliente cliente = new Cliente();
-	
+	Cliente clienteEnvia = new Cliente();
+	Cliente clienteRecebe = new Cliente();
 	
 	private JPanel contentPane;
 
@@ -80,8 +80,6 @@ public class Tela extends JFrame {
 	}
 	 
 	public Tela() {
-		
-		this.cliente.criarConexao();
 		
 		setTitle("Urna Eletr\u00F4nica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -330,7 +328,7 @@ public class Tela extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(btnFinalizarVotao.isEnabled()){				     
-					cliente.enviaVotos(listaCandidatos);
+					clienteEnvia.enviaVotos(listaCandidatos);
 				    int i = 0;
 					while(i != listaCandidatos.size()){
 						listaCandidatosServ.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos() + listaCandidatosServ.get(i).getNumVotos());						
@@ -371,9 +369,20 @@ public class Tela extends JFrame {
 					
 					//para teste, depois colocar aqui pra pegar do servidor
 					//adcCandidatos();
-					listaCandidatos = cliente.recebeCandidatos();
-					listaCandidatosServ = new ArrayList<>(listaCandidatos);
+					clienteEnvia.start();
+					clienteEnvia.enviaOpcao("999");
+					try {
+						clienteEnvia.join();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					
+					System.out.println("antes de receber");
+					clienteRecebe.start();
+					listaCandidatos = clienteRecebe.recebeCandidatos();
+					listaCandidatosServ = new ArrayList<>(listaCandidatos);
+					System.out.println("depois de receber");
 					
 					int i = 0;
 					

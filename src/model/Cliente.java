@@ -1,9 +1,11 @@
 package model;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;	
 
-public class Cliente {
+public class Cliente extends Thread{
 	
 	private Socket socketCliente;
     private String hostname = "cosmos.lasdpc.icmc.usp.br";
@@ -19,6 +21,10 @@ public class Cliente {
     
     private ObjectOutputStream dadosAEnviar;
 	
+    public void run(){
+    	this.criarConexao();
+    }
+    
 	public int criarConexao() {
 
         try {
@@ -39,7 +45,7 @@ public class Cliente {
             dadosAEnviar.flush();
             dadosAEnviar.writeObject(opcao);
             dadosAEnviar.flush();
-
+            dadosAEnviar.close();
         } catch (Exception e) {
             System.out.println("Erro 6: " + e.getMessage());
         }
@@ -48,28 +54,10 @@ public class Cliente {
 	public void enviaVotos(ArrayList<Candidato> candidatos){
 		try {
 			//Coloca o array com os dados e votos dos candidatos em um arquivo
-            File arq = new File("CandidatosCliente.dat");
-            arq.createNewFile();
-            FileOutputStream canoOut = new FileOutputStream(arq);
-            ObjectOutputStream serializador = new ObjectOutputStream(canoOut);
-            serializador.writeObject(candidatos);
-            serializador.flush();
-            serializador.close();
-            canoOut.close();
-            
-            //Eniva o arquivo com votos do cliente para o servidor
-            dadosAEnviar = new ObjectOutputStream(socketCliente.getOutputStream());
-            FileInputStream file = new FileInputStream("CandidatosCliente.dat"); 
-            byte[] buf = new byte[4062];
-            int i = 0;
-            while(true){
-                int len = file.read(buf);
-                if(len == -1) break;
-                dadosAEnviar.write(buf, i, len);
-                i++;
-            }
-            dadosAEnviar.flush();
-            file.close();
+            ObjectOutputStream saida = new ObjectOutputStream(socketCliente.getOutputStream());            
+            saida.writeObject(candidatos);
+            saida.flush();
+            saida.close();            
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -77,28 +65,12 @@ public class Cliente {
 	
 	public ArrayList<Candidato> recebeCandidatos(){
 		ArrayList<Candidato> candidatos = new ArrayList<>();
-        try {
-        	//Recebe o arquivo do servidor contendo os dados dos candidatos
-        	int i = 0, len = 0;
-        	byte[] buf = new byte[4062];
-        	FileOutputStream file = new FileOutputStream("CandidatosServidor.dat");
+        try {        	
+        	//Recebe o array do servidor contendo os dados dos candidatos
         	ObjectInputStream entrada = new ObjectInputStream(socketCliente.getInputStream());
-        	while(true){
-                len = entrada.read(buf);
-                if(len == -1) break;
-                file.write(buf, i, len);
-                i++;   
-            }
-        	file.close();
-        	entrada.close();
-        	      
-        	//Le o arquivo recebido e coloca os dados dos candidatos em um array
-            File arq = new File("CandidatosServidor.dat");
-            FileInputStream canoIn = new FileInputStream(arq);
-            ObjectInputStream serializador = new ObjectInputStream(canoIn);
-            candidatos = (ArrayList<Candidato>) serializador.readObject();
-            serializador.close();
-            canoIn.close();            
+        	System.out.println("AQUI");
+        	candidatos = (ArrayList<Candidato>) entrada.readObject();
+        	entrada.close();           
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
