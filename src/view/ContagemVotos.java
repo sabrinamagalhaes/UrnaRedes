@@ -2,10 +2,14 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Candidato;
+
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
@@ -32,7 +36,7 @@ public class ContagemVotos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ContagemVotos() {
+	public ContagemVotos(ArrayList<Candidato> listaCandidatos) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700,500);
 		contentPane = new JPanel();
@@ -48,5 +52,24 @@ public class ContagemVotos extends JFrame {
 		textPane.setEditable(false);
 		textPane.setBounds(26, 36, 637, 398);
 		contentPane.add(textPane);
+		
+		String candidatoNome;
+		int candidatoNumero;
+		int candidatoVotos;
+		String candidatoPartido;
+		String TextoExibido="";
+		int i = 0;
+		
+		
+		while(i != listaCandidatos.size()){
+			candidatoNome = listaCandidatos.get(i).getNomeCandidato();
+			candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
+			candidatoPartido = listaCandidatos.get(i).getPartido();
+			candidatoVotos = listaCandidatos.get(i).getNumVotos();
+			TextoExibido +="Nome: "+candidatoNome +" Nº: "+candidatoNumero
+					+" Partido: "+candidatoPartido+" NºVotos: "+candidatoVotos+"\n";
+			i++;
+		}
+		textPane.setText(TextoExibido);
 	}
 }
