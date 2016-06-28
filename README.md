@@ -17,4 +17,14 @@
   2. Salvar dados enviados pelo cliente
   
 #### Como executar
+
+* Servidor:
+  1. Entre no diretório UrnaRedes/src
+  1. Compile o arquivo ServidorPool `javac model/ServidorPool.java`
+  2. Execute o arquivo ServidorPool `java model.ServidorPool.java`
+
+* Cliente:
+  Execute o arquivo src/view/Tela.java
+
+Obs: O projeto está configurado para ser rodado no Cluster Cosmos, na porta 40005.
   
