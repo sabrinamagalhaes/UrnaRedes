@@ -32,6 +32,7 @@ public class Tela extends JFrame {
 	
 	
 	ArrayList<Candidato> listaCandidatos = new ArrayList<Candidato>();
+	ArrayList<Candidato> listaCandidatosServ;
 	Cliente cliente = new Cliente();
 	
 	
@@ -333,6 +334,7 @@ public class Tela extends JFrame {
 					vt.setVisible(true);
 					dispose();
 				     
+					cliente.enviaVotos(listaCandidatos);
 					//teste
 				    int i = 0;
 					while(i != listaCandidatos.size()){
@@ -369,8 +371,9 @@ public class Tela extends JFrame {
 					btnVerificar.setEnabled(true);
 					
 					//para teste, depois colocar aqui pra pegar do servidor
-					adcCandidatos();
+					//adcCandidatos();
 					listaCandidatos = cliente.recebeCandidatos();
+					listaCandidatosServ = new ArrayList<>(listaCandidatos);
 					
 					
 					int i = 0;
