@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class Servidor extends Thread{
         	
         	switch(str){
 	        	case "888":
-	        		//Atualizar o numero de votos dos candidatos
+	        		atualizaVotosCandidatos();
 	        		break;
 	        	case "999":
 	        		enviarArquivos("/home/grupo05bsi/");
@@ -77,7 +78,7 @@ public class Servidor extends Thread{
         }//fim catch
     }//fim enviarDados
     
-    public void atualizaVotosCandidatos(){    	
+    public synchronized void atualizaVotosCandidatos(){    	
 		try {
 			//Recebe o arquivo do cliente contendo os votos dos candidatos
 	    	int i = 0, len = 0;
@@ -113,6 +114,10 @@ public class Servidor extends Thread{
             serializador2.close();
             canoIn2.close();
             
+            //Limpa o arquivo de candidatos armazenado no servidor
+            PrintWriter pw = new PrintWriter("CandidatosServidor.dat");
+            pw.close();
+            
             //Incrementa numero de votos dos candidatos
             for(i = 0; i < candidatosServidor.size(); i++){
             	candidatosServidor.get(i).setNumVotos(candidatosServidor.get(i).getNumVotos() + votosCliente.get(i).getNumVotos());
@@ -120,8 +125,6 @@ public class Servidor extends Thread{
             
             //Reescreve o arquivo do servidor
             File arqNovo = new File("CandidatosServidor.dat");
-            arqNovo.delete();
-            arqNovo.createNewFile();
             FileOutputStream canoOut3 = new FileOutputStream(arqNovo);
             ObjectOutputStream serializador3 = new ObjectOutputStream(canoOut3);
             serializador3.writeObject(candidatosServidor);

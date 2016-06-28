@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import model.Candidato;
+import model.Cliente;
 
 import javax.swing.JScrollBar;
 import javax.swing.JButton;
@@ -31,6 +32,7 @@ public class Tela extends JFrame {
 	
 	
 	ArrayList<Candidato> listaCandidatos = new ArrayList<Candidato>();
+	Cliente cliente = new Cliente();
 	
 	
 	private JPanel contentPane;
@@ -61,6 +63,7 @@ public class Tela extends JFrame {
 		listaCandidatos.add(new Candidato(0000,"Branco","S/P",0));
 		
 	}
+	
 	public int pegarPosicaoCandidato(int numero){
 		int candidatoNumero;
 		int i = 0;
@@ -367,6 +370,7 @@ public class Tela extends JFrame {
 				
 				//para teste, depois colocar aqui pra pegar do servidor
 				adcCandidatos();
+				listaCandidatos = cliente.recebeCandidatos();
 				
 				
 				int i = 0;
