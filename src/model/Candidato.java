@@ -1,6 +1,6 @@
 package model;
 
-public class Candidato {
+public class Candidato implements java.io.Serializable{
 	
 	private int codigoVotacao;
 	private String nomeCandidato;
