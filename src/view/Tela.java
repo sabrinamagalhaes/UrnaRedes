@@ -377,36 +377,21 @@ public class Tela extends JFrame {
 					cliente = new Cliente(0);
 					cliente.run();
 					
-					listaCandidatos = cliente.getListaCandidatos();	
-					
-					//for(int i=0; i < listaCandidatos.size(); i++){
-					//	listaCandidatosServ.add(listaCandidatos.get(i));
-					//}
-					listaCandidatosServ.ensureCapacity(listaCandidatos.size());
-					Collections.copy(listaCandidatosServ, listaCandidatos);
-					
-					for(int j = 0; j < listaCandidatosServ.size(); j++){
-						System.out.println(listaCandidatosServ.get(j).getNomeCandidato());
-						System.out.println(listaCandidatosServ.get(j).getNumVotos());
-					}
+					listaCandidatosServ = cliente.getListaCandidatos();
 					
 					int i = 0;
-					while(i != listaCandidatos.size()){
-						candidatoNome = listaCandidatos.get(i).getNomeCandidato();
-						candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
-						candidatoPartido = listaCandidatos.get(i).getPartido();
-						listaCandidatos.get(i).setNumVotos(0);
+					while(i != listaCandidatosServ.size()){
+						candidatoNome = listaCandidatosServ.get(i).getNomeCandidato();
+						candidatoNumero = listaCandidatosServ.get(i).getCodigoVotacao();
+						candidatoPartido = listaCandidatosServ.get(i).getPartido();
+						Candidato cand = new Candidato(candidatoNumero, candidatoNome, candidatoPartido, 0);
+						listaCandidatos.add(cand);
 						TextoExibido+=candidatoNome +" "+candidatoNumero+" "+candidatoPartido+"\n";
 						i++;
 					}
 					textPane.setText(TextoExibido);
 					
 					btnListarCandidatos.setEnabled(false);
-					 for(int j = 0; j < listaCandidatosServ.size(); j++){
-							System.out.println(listaCandidatosServ.get(j).getNomeCandidato());
-							System.out.println(listaCandidatosServ.get(j).getNumVotos());
-					}
-
 				}
 			}
 		});
