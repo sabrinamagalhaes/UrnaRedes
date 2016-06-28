@@ -73,6 +73,7 @@ public class Servidor extends Thread{
         }//fim catch
     }//fim enviarDados
     
+    
     public synchronized void atualizaVotosCandidatos(){    	
 		try {
 			//Recebe o array do cliente contendo os votos dos candidatos

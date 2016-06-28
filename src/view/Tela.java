@@ -21,6 +21,7 @@ import java.awt.Label;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.awt.SystemColor;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
@@ -32,9 +33,8 @@ public class Tela extends JFrame {
 	
 	
 	ArrayList<Candidato> listaCandidatos = new ArrayList<Candidato>();
-	ArrayList<Candidato> listaCandidatosServ;
-	Cliente clienteEnvia = new Cliente();
-	Cliente clienteRecebe = new Cliente();
+	ArrayList<Candidato> listaCandidatosServ = new ArrayList<Candidato>();
+	Cliente cliente;
 	
 	private JPanel contentPane;
 
@@ -57,13 +57,6 @@ public class Tela extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public void adcCandidatos(){
-		listaCandidatos.add(new Candidato(1111,"Caio","PQP",0));
-		listaCandidatos.add(new Candidato(1112,"Caiolino","GAP",0));
-		listaCandidatos.add(new Candidato(1113,"Caiuu","GOT",0));
-		listaCandidatos.add(new Candidato(0000,"Branco","S/P",0));
-		
-	}
 	
 	public int pegarPosicaoCandidato(int numero){
 		int candidatoNumero;
@@ -327,8 +320,22 @@ public class Tela extends JFrame {
 		btnFinalizarVotao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(btnFinalizarVotao.isEnabled()){				     
-					clienteEnvia.enviaVotos(listaCandidatos);
+				if(btnFinalizarVotao.isEnabled()){
+					cliente = new Cliente(1);
+					cliente.setListaCandidatos(listaCandidatos);
+					cliente.run();
+				    
+				    
+				    for(int i = 0; i < listaCandidatos.size(); i++){
+						System.out.println(listaCandidatos.get(i).getNomeCandidato());
+						System.out.println(listaCandidatos.get(i).getNumVotos());
+					}
+				    
+				    for(int i = 0; i < listaCandidatosServ.size(); i++){
+						System.out.println(listaCandidatosServ.get(i).getNomeCandidato());
+						System.out.println(listaCandidatosServ.get(i).getNumVotos());
+					}
+					
 				    int i = 0;
 					while(i != listaCandidatos.size()){
 						listaCandidatosServ.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos() + listaCandidatosServ.get(i).getNumVotos());						
@@ -367,26 +374,23 @@ public class Tela extends JFrame {
 					btnCorrige.setEnabled(true);
 					btnVerificar.setEnabled(true);
 					
-					//para teste, depois colocar aqui pra pegar do servidor
-					//adcCandidatos();
-					clienteEnvia.start();
-					clienteEnvia.enviaOpcao("999");
-					try {
-						clienteEnvia.join();
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+					cliente = new Cliente(0);
+					cliente.run();
+					
+					listaCandidatos = cliente.getListaCandidatos();	
+					
+					//for(int i=0; i < listaCandidatos.size(); i++){
+					//	listaCandidatosServ.add(listaCandidatos.get(i));
+					//}
+					listaCandidatosServ.ensureCapacity(listaCandidatos.size());
+					Collections.copy(listaCandidatosServ, listaCandidatos);
+					
+					for(int j = 0; j < listaCandidatosServ.size(); j++){
+						System.out.println(listaCandidatosServ.get(j).getNomeCandidato());
+						System.out.println(listaCandidatosServ.get(j).getNumVotos());
 					}
 					
-					System.out.println("antes de receber");
-					clienteRecebe.start();
-					listaCandidatos = clienteRecebe.recebeCandidatos();
-					listaCandidatosServ = new ArrayList<>(listaCandidatos);
-					System.out.println("depois de receber");
-					
 					int i = 0;
-					
-	
 					while(i != listaCandidatos.size()){
 						candidatoNome = listaCandidatos.get(i).getNomeCandidato();
 						candidatoNumero = listaCandidatos.get(i).getCodigoVotacao();
@@ -398,6 +402,10 @@ public class Tela extends JFrame {
 					textPane.setText(TextoExibido);
 					
 					btnListarCandidatos.setEnabled(false);
+					 for(int j = 0; j < listaCandidatosServ.size(); j++){
+							System.out.println(listaCandidatosServ.get(j).getNomeCandidato());
+							System.out.println(listaCandidatosServ.get(j).getNumVotos());
+					}
 
 				}
 			}
@@ -410,6 +418,14 @@ public class Tela extends JFrame {
 					//colocar o codigo do botão confirma aqui, no caso, para evento click
 					if(!btnFinalizarVotao.isEnabled()){
 						btnFinalizarVotao.setEnabled(true);
+					}
+					
+					int i = pegarPosicaoCandidato(Integer.parseInt(textoVotoID));
+					if(i != listaCandidatos.size()){
+						listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
+					}else{
+						 i = pegarPosicaoCandidato(0000);
+						 listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
 					}
 					
 					//exibe uma mensagem dizendo que o voto foi confirmado
@@ -450,12 +466,10 @@ public class Tela extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				int i = pegarPosicaoCandidato(Integer.parseInt(textoVotoID));
 				if(i != listaCandidatos.size()){
-					listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
 					txtNomeCandidato.setText(listaCandidatos.get(i).getNomeCandidato());
 
 				}else{
 					 i = pegarPosicaoCandidato(0000);
-					 listaCandidatos.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos()+1);
 					 txtNomeCandidato.setText("Branco/Inválido");
 				}
 						

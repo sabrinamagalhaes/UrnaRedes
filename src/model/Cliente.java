@@ -13,23 +13,37 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;	
 
-public class Cliente extends Thread{
+public class Cliente{
 	
 	private Socket socketCliente;
     private String hostname = "cosmos.lasdpc.icmc.usp.br";
     private int porta = 40005; 
-    
+    private int opcao; 
     private ObjectOutputStream dadosAEnviar;
+    private ArrayList<Candidato> listaCandidatos;
+    
+    public Cliente(int opcao){
+    	this.opcao = opcao;
+    }
 	
     public void run(){
     	this.criarConexao();
+    	switch(opcao){
+    	case 0:
+    		enviaOpcao("999");
+    		this.setListaCandidatos(this.recebeCandidatos());
+    		break;
+    	case 1:
+    		enviaOpcao("888");
+    		enviaVotos(listaCandidatos);
+    		break;    		
+    	}
     }
     
 	public int criarConexao() {
 
         try {
-			this.socketCliente = new Socket (this.hostname, this.porta);
-			
+			this.socketCliente = new Socket (this.hostname, this.porta);			
 			System.out.println("Cliente conectado");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -45,7 +59,6 @@ public class Cliente extends Thread{
             dadosAEnviar.flush();
             dadosAEnviar.writeObject(opcao);
             dadosAEnviar.flush();
-            dadosAEnviar.close();
         } catch (Exception e) {
             System.out.println("Erro 6: " + e.getMessage());
         }
@@ -56,8 +69,7 @@ public class Cliente extends Thread{
 			//Coloca o array com os dados e votos dos candidatos em um arquivo
             ObjectOutputStream saida = new ObjectOutputStream(socketCliente.getOutputStream());            
             saida.writeObject(candidatos);
-            saida.flush();
-            saida.close();            
+            saida.flush();     
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -68,9 +80,7 @@ public class Cliente extends Thread{
         try {        	
         	//Recebe o array do servidor contendo os dados dos candidatos
         	ObjectInputStream entrada = new ObjectInputStream(socketCliente.getInputStream());
-        	System.out.println("AQUI");
         	candidatos = (ArrayList<Candidato>) entrada.readObject();
-        	entrada.close();           
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
@@ -78,4 +88,12 @@ public class Cliente extends Thread{
         }
         return candidatos;
     }
+
+	public ArrayList<Candidato> getListaCandidatos() {
+		return listaCandidatos;
+	}
+
+	public void setListaCandidatos(ArrayList<Candidato> listaCandidatos) {
+		this.listaCandidatos = listaCandidatos;
+	}
 }
