@@ -81,7 +81,7 @@ public class Tela extends JFrame {
 	 
 	public Tela() {
 		
-
+		this.cliente.criarConexao();
 		
 		setTitle("Urna Eletr\u00F4nica");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -329,19 +329,18 @@ public class Tela extends JFrame {
 		btnFinalizarVotao.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(btnFinalizarVotao.isEnabled()){
-					ContagemVotos vt = new ContagemVotos();
-					vt.setVisible(true);
-					dispose();
-				     
+				if(btnFinalizarVotao.isEnabled()){				     
 					cliente.enviaVotos(listaCandidatos);
-					//teste
 				    int i = 0;
 					while(i != listaCandidatos.size()){
-						System.out.println(listaCandidatos.get(i).getNomeCandidato() + " "+listaCandidatos.get(i).getCodigoVotacao()+ " "+listaCandidatos.get(i).getNumVotos());
-						
+						listaCandidatosServ.get(i).setNumVotos(listaCandidatos.get(i).getNumVotos() + listaCandidatosServ.get(i).getNumVotos());						
 						i++;
 					}
+					ContagemVotos vt = new ContagemVotos();
+					vt.setListaCandidatos(listaCandidatosServ);
+					vt.exibirNaTela();
+					vt.setVisible(true);
+					dispose();
 				}
 
 			}

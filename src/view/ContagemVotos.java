@@ -16,7 +16,9 @@ import javax.swing.JTextPane;
 public class ContagemVotos extends JFrame {
 
 	private JPanel contentPane;
-
+	private ArrayList<Candidato> listaCandidatos = new ArrayList<Candidato>();
+	private JTextPane textPane = new JTextPane();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -36,7 +38,7 @@ public class ContagemVotos extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public ContagemVotos(ArrayList<Candidato> listaCandidatos) {
+	public ContagemVotos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700,500);
 		contentPane = new JPanel();
@@ -48,11 +50,21 @@ public class ContagemVotos extends JFrame {
 		lblResultadoDaVotao.setBounds(26, 11, 227, 14);
 		contentPane.add(lblResultadoDaVotao);
 		
-		JTextPane textPane = new JTextPane();
+		
 		textPane.setEditable(false);
 		textPane.setBounds(26, 36, 637, 398);
-		contentPane.add(textPane);
-		
+		contentPane.add(textPane);			
+	}
+
+	public ArrayList<Candidato> getListaCandidatos() {
+		return listaCandidatos;
+	}
+
+	public void setListaCandidatos(ArrayList<Candidato> listaCandidatos) {
+		this.listaCandidatos = listaCandidatos;
+	}
+	
+	public void exibirNaTela(){
 		String candidatoNome;
 		int candidatoNumero;
 		int candidatoVotos;
@@ -72,4 +84,5 @@ public class ContagemVotos extends JFrame {
 		}
 		textPane.setText(TextoExibido);
 	}
+	
 }
