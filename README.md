@@ -21,7 +21,16 @@
 * Servidor:
   1. Entre no diretório UrnaRedes/src
   1. Compile o arquivo ServidorPool `javac model/ServidorPool.java`
-  2. Execute o arquivo ServidorPool `java model.ServidorPool.java`
+
+Para rodar normalmente:
+Execute o arquivo ServidorPool `java model.ServidorPool.java
+
+OU
+
+Para deixar o programa rodando em background no Servidor, digite: 
+ `nohup java model.ServidorPool.java`
+ 
+ Para acompanhar seu log, digite: `tail -f nohup.out`
 
 * Cliente:
   Execute o arquivo src/view/Tela.java
