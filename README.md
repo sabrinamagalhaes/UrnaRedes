@@ -23,12 +23,13 @@
   1. Compile o arquivo ServidorPool `javac model/ServidorPool.java`
 
 Para rodar normalmente:
-Execute o arquivo ServidorPool `java model.ServidorPool.java
+Execute o arquivo ServidorPool 
+`java model.ServidorPool`
 
 OU
 
 Para deixar o programa rodando em background no Servidor, digite: 
- `nohup java model.ServidorPool.java`
+ `nohup java model.ServidorPool &`
  
  Para acompanhar seu log, digite: `tail -f nohup.out`
 
